@@ -23,6 +23,19 @@ function App() {
     setUserArray([...userArray])
   }
 
+  const sortArrayByEmail = () => {
+    userArray.sort((a, b) => {
+      if (a.email < b.email) {
+        return -1;
+      } else if (a.email > b.email) {
+        return 1;
+      } else {
+        return 0;
+      }
+    })
+    setUserArray([...userArray])
+  }
+
   useEffect(() => {
     Axios.get('https://randomuser.me/api/?results=50&nat=us')
       .then(res => {
@@ -39,8 +52,15 @@ function App() {
       <button id='sort' type="button" onClick={sortArray} >
         Sort First Name
       </button>
-      <input type="text" name="search" onChange={e => setFirstName(e.target.value)} />
+      <input type="text" name="search" placeholder="Type 1st name. Case Sensetive"
+        onChange={e => setFirstName(e.target.value)} />
+
+      <button id='sort' type="button" onClick={sortArrayByEmail} >
+        Sort Email
+      </button>
+
       <ContainerList userArray={filterArray} />
+
     </div>
   );
 }
